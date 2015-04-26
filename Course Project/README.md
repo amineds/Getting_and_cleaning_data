@@ -28,10 +28,10 @@ You should create one R script called run_analysis.R that does the following.
 
 ## How To
 
-* Unzip the file getdata-projectfiles-UCI HAR Dataset.zip in the working directory.
+* Unzip the file **getdata-projectfiles-UCI HAR Dataset.zip** in the working directory.
 
-* Place the scripts *run_analysis.R* in the working directory.
+* Place the scripts **run_analysis.R** in the working directory.
 
-* Source the run_analysis via Rstudio or via R Console
+* Source the **run_analysis** via Rstudio or via R Console
 
 * Tidy data are generated in the working directory, Cf. to the **CodeBook** to get the meaning of each column of the file

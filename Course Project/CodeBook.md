@@ -38,9 +38,9 @@ To obtain the final data set, the following steps were performed
 
 ## Variables
 
-* _Subject_ : the subject who performed the activity.
+* Subject : the subject who performed the activity.
 
-* _Activity_ : the label of the activity performed.
+* Activity : the label of the activity performed.
 
 * 79 variables, named as labeled in the original set, contain the average of each variable for each activity and each subject subject. 
 
