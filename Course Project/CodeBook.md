@@ -42,7 +42,7 @@ To obtain the final data set, the following steps were performed
 
 * Activity : the label of the activity performed.
 
-* 79 variables, named as labeled in the original set, contain the average of each variable for each activity and each subject subject. 
+* 79 variables, named as labelled in the original data set, each of which contain the average of each variable for each activity and each subject subject. 
 
 * How to read variables, BodyAcc : Body linear Acceleration, Jerk : Jerk Signals, X/Y/Z : axis directions of the phone, Gyro : gyroscope
 
