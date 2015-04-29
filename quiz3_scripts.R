@@ -26,38 +26,34 @@ if(!file.exists("./data/jeff_pic.jpg")){
                   method="internal",
                   mode = "wb",
     )
+    
     jeff_pic=jpeg::readJPEG("./data/jeff_pic.jpg",native=TRUE)
     
+    quantile(jeff_pic,c(0.30,0.80))
 }
 
 #### Question 3 ####
 
-#Preparing datasets
+#GDP File
+#fileUrl1 = "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv"
+#download.file(fileUrl1,destfile="./data/gdp.csv",method="internal")
 
-#GDP File cleansing
-fileUrl1 = "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv"
-download.file(fileUrl1,destfile="./data/gdp.csv",method="internal")
 gdp_data <- read.csv("./data/gdp.csv",
                      stringsAsFactors=TRUE,
                      header = FALSE,
                      skip=5,
-                     colClasses = c('character', 
-                                    'numeric',
-                                    'character',
-                                    'character',
-                                    'numeric',
-                                    'character',
-                                    'character',
-                                    'character',
-                                    'character',
-                                    'character'
-                                    )
+                     nrows=190,
+                     strip.white = TRUE,
+                     skipNul = TRUE
                     )
-gdp_data <- gdp_data[(gdp_data$V1 !="") & (gdp_data$V2 !="") ,]
+
+gdp_data <- gdp_data[,c(1,2,4,5)]
+
 
 #EDS State File
-fileUrl2 = "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FEDSTATS_Country.csv"
-download.file(fileUrl2,destfile="./data/edstats_country.csv",method="internal")
+#fileUrl2 = "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FEDSTATS_Country.csv"
+#download.file(fileUrl2,destfile="./data/edstats_country.csv",method="internal")
+
 eds_data <- read.csv("./data/edstats_country.csv",
                      stringsAsFactors=TRUE,
                      header = TRUE,
@@ -66,28 +62,30 @@ eds_data <- read.csv("./data/edstats_country.csv",
                      strip.white = TRUE
                     )
 
-mergedData = merge(gdp_data,
+#Merging data
+merged_data = merge(gdp_data,
                    eds_data,
                    by.x="V1",
                    by.y="CountryCode",
                    all=FALSE                 
 )
 
+merged_data <- rename(merged_data,CountryCode=V1,Rank=V2,CountryName=V4,GDP=V5)
 
+merged_data <- arrange(merged_data,desc(Rank))
 
+merged_data[13,1:4]
 
+#### Question 4 ####
+mean(merged_data$Rank[merged_data$Income.Group=="High income: OECD"])
+mean(merged_data$Rank[merged_data$Income.Group=="High income: nonOECD"])
 
+#### Question 5 ####
+rank_breaks <- quantile(merged_data$Rank,c(0,0.2,0.4,0.6,0.8,1))
 
+merged_data$RankGroups <- cut(merged_data$Rank,breaks=rank_breaks)
 
-
-
-
-
-
-
-
-
-
+rank_income_tab <- table(merged_data$RankGroups,merged_data$Income.Group)
 
 
 
